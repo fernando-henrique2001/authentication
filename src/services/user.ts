@@ -14,6 +14,15 @@ const verifyEmailExists = async (email: string) => {
     return await userRepository.getUser(email);
 }
 
+const getUserById = async (userId: string) => {
+    if (!userId) {
+        throw new ErrorAPI("BAD_REQUEST")
+    }
+
+    return await userRepository.getUserById(userId);
+}
+
+
 const createUser = async (user: userType, confirmPassword: string) => {
     validateService.validateObject<userType>(userRegisterValidation, user);
 
@@ -33,7 +42,7 @@ const createUser = async (user: userType, confirmPassword: string) => {
 const checkPassword = async (password: string, passwordEncrypted: string) => {
     const validPass = await bcryptService.compareWithEncrypted(password, passwordEncrypted);
 
-    if (!validPass) throw new ErrorAPI('FORBIDDEN', 'Invalid password');
+    if (!validPass) throw new ErrorAPI('FORBIDDEN', 'Invalid email or password');
 };
 
 const getToken = async (loginUser: loginUserType) => {
@@ -42,16 +51,15 @@ const getToken = async (loginUser: loginUserType) => {
     const user = await verifyEmailExists(loginUser.email)
 
     if (!user) {
-        throw new ErrorAPI("NOT_FOUND", "User not found")
+        throw new ErrorAPI("UNAUTHORIZED", "Invalid email or password")
     }
 
     await checkPassword(loginUser.password, user.password);
 
     const userId = user.id;
-    console.log(userId);
 
-    return { token: jwtService.generateJwtToken({ userId }) };
+    return { message: "success", token: jwtService.generateJwtToken({ userId }) };
 }
 
-export { createUser, getToken }
+export { createUser, getToken, getUserById }
 

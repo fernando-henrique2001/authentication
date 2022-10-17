@@ -18,7 +18,8 @@ const login = async (request: Request, response: Response) => {
 }
 
 const perfil = async (request: Request, response: Response, next: NextFunction) => {
-    return response.status(200).json({ message: "Usuário logado com sucesso!" });
+    const { userId } = response.locals.user;
+    return response.status(200).json(await userService.getUserById(userId));
 };
 
 export default { create, login, perfil };

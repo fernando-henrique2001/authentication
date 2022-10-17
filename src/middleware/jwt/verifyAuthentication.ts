@@ -3,8 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import { jwtService } from '../../services/';
 
 const verifyAuthentication = (request: Request, response: Response, next: NextFunction) => {
-    jwtService.checkUserLogged(request.headers.authorization);
-
+    response.locals.user = jwtService.checkUserLogged(request.headers.authorization);
     next();
 }
 
