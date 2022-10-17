@@ -3,7 +3,7 @@ import ErrorAPI from "../middleware/error/ErrorAPI";
 import { userType, loginUserType, userRegisterValidation, loginValidation } from "../types/userTypes";
 import bcryptService from "./bcrypt";
 import validateService from "./validator";
-import jwtService from "./jwt";
+import { jwtService } from "./";
 
 
 const verifyEmailExists = async (email: string) => {

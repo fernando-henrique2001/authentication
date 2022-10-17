@@ -13,7 +13,6 @@ type loginUserType = {
 
 type TokenPayload = {
     userId: string;
-    userType: string;
 }
 
 const userRegisterValidation: yup.SchemaOf<userType> = yup.object().shape({

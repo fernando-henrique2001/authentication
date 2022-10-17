@@ -42,4 +42,4 @@ const checkUserLogged = (headerAuthorization: string | undefined) => {
     return authenticateUser(token);
 }
 
-export default { generateJwtToken, checkUserLogged }
+export { generateJwtToken, checkUserLogged }
