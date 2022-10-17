@@ -7,6 +7,6 @@ const router = Router();
 router.use('/user', userRoutes);
 
 
-router.get('*', (req, res) => res.sendStatus(404));
+router.use('*', (req, res) => res.sendStatus(404));
 
 export { router };
