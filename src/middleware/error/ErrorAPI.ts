@@ -13,4 +13,4 @@ class ErrorAPI extends Error {
 }
 
 export default ErrorAPI;
-export const defaultError = new ErrorAPI('INTERNAL_SERVER_ERROR', 'Erro inesperado no servidor');
+export const defaultError = new ErrorAPI('INTERNAL_SERVER_ERROR', 'Erro inesperado no servidor.');
