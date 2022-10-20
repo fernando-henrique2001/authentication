@@ -1,8 +1,7 @@
 import userRepository from "../repositories/user";
 import ErrorAPI from "../middleware/error/ErrorAPI";
-import { userType, loginUserType, userRegisterValidation, loginValidation } from "../types/userTypes";
+import { userType, loginUserType } from "../types/userType";
 import bcryptService from "./bcrypt";
-import validateService from "./validator";
 import { jwtService } from "./";
 
 
@@ -24,7 +23,7 @@ const getUserById = async (userId: string) => {
 
 
 const createUser = async (user: userType, confirmPassword: string) => {
-    validateService.validateObject<userType>(userRegisterValidation, user);
+    //validateService.validateObject<userType>(userRegisterValidation, user);
 
     if (user.password !== confirmPassword) {
         throw new ErrorAPI("BAD_REQUEST", "Different passwords")
@@ -46,7 +45,7 @@ const checkPassword = async (password: string, passwordEncrypted: string) => {
 };
 
 const getToken = async (loginUser: loginUserType) => {
-    validateService.validateObject<loginUserType>(loginValidation, loginUser);
+    //validateService.validateObject<loginUserType>(loginValidation, loginUser);
 
     const user = await verifyEmailExists(loginUser.email)
 

@@ -1,6 +1,6 @@
 import jwt, { TokenExpiredError } from 'jsonwebtoken';
 import ErrorAPI from '../middleware/error/ErrorAPI';
-import { TokenPayload } from '../types/userTypes';
+import { TokenPayload } from '../types/userType';
 
 const generateJwtToken = (data: any) => {
     if (process.env.SECRET === undefined || process.env.EXPIRES_TOKEN_SECONDS === undefined) {

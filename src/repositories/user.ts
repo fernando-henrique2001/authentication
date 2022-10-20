@@ -1,19 +1,14 @@
 import db from "../data/db-config";
 import ErrorAPI from "../middleware/error/ErrorAPI";
-import { userType } from "../types/userTypes";
+import { userType } from "../types/userType";
 
 const createUser = async (user: userType) => {
-    if (!user) {
-        throw new ErrorAPI("BAD_REQUEST")
-    }
 
     return db.table("user").insert(user);
 }
 
 const getUser = async (email: string) => {
-    if (!email) {
-        throw new ErrorAPI("BAD_REQUEST")
-    }
+
     let user: any = await db.select().where({
         email,
     }).table("user").first();

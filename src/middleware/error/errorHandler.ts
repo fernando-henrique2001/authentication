@@ -9,7 +9,6 @@ function errorHandler(error: ErrorAPI, request: Request, response: Response, nex
             message: error.message,
         });
     } else {
-        console.error({ error });
         response.status(500).json({
             message: error.message,
             stackError: error.stack

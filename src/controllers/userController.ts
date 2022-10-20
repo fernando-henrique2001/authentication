@@ -4,9 +4,10 @@ import { userService } from "../services";
 
 const create = async (request: Request, response: Response) => {
     const { name, email, password, confirmPassword } = request.body;
+    await userService.createUser({ name, email, password }, confirmPassword)
     return response
         .status(200)
-        .json(await userService.createUser({ name, email, password }, confirmPassword));
+        .json({ message: "User registered successfully" });
 };
 
 const login = async (request: Request, response: Response) => {
