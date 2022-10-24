@@ -1,6 +1,7 @@
 import db from "../data/db-config";
 import ErrorAPI from "../middleware/error/ErrorAPI";
 import { userType } from "../types/userType";
+import { parseObject } from "../utils/utils";
 
 const createUser = async (user: userType) => {
 
@@ -13,8 +14,8 @@ const getUser = async (email: string) => {
         email,
     }).table("user").first();
 
-    if (user) user = JSON.parse(JSON.stringify(user))
-
+    if (user) user = parseObject(user);
+    console.log(user);
     return user;
 
 };
@@ -27,7 +28,7 @@ const getUserById = async (userId: string) => {
         id: userId,
     }).table("user").first();
 
-    if (user) user = JSON.parse(JSON.stringify(user))
+    if (user) user = parseObject(user);
 
     return user;
 

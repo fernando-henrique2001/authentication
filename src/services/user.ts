@@ -23,7 +23,6 @@ const getUserById = async (userId: string) => {
 
 
 const createUser = async (user: userType, confirmPassword: string) => {
-    //validateService.validateObject<userType>(userRegisterValidation, user);
 
     if (user.password !== confirmPassword) {
         throw new ErrorAPI("BAD_REQUEST", "Different passwords")
@@ -45,7 +44,6 @@ const checkPassword = async (password: string, passwordEncrypted: string) => {
 };
 
 const getToken = async (loginUser: loginUserType) => {
-    //validateService.validateObject<loginUserType>(loginValidation, loginUser);
 
     const user = await verifyEmailExists(loginUser.email)
 
@@ -60,5 +58,5 @@ const getToken = async (loginUser: loginUserType) => {
     return { message: "success", token: jwtService.generateJwtToken({ userId }) };
 }
 
-export { createUser, getToken, getUserById }
+export { createUser, getToken, getUserById, verifyEmailExists, checkPassword }
 
