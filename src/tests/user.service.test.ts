@@ -106,10 +106,13 @@ describe('Test My app server', () => {
             password: "@Gabriela123",
         }
 
-
-        expect(async () => {
+        try {
             await userService.createUser(user, "@Gabriela123")
-        }).rejects.toThrow('CONFLICT');
+            throw new Error();
+        } catch (error: any) {
+            expect(error).toHaveProperty("message");
+            expect(error.message).toEqual("Email already exists");
+        }
     })
 
     it("should not create user: Different passwords", async () => {
@@ -125,10 +128,16 @@ describe('Test My app server', () => {
         }
 
 
-        expect(async () => {
+        try {
             await userService.createUser(user, "@Gabriela23")
-        }).rejects.toThrow();
-    })
+            throw new Error();
+        } catch (error: any) {
+            expect(error).toHaveProperty("message");
+            expect(error.message).toEqual("Different passwords");
+
+        }
+
+    });
 
     it("should check password", async () => {
 
@@ -137,9 +146,14 @@ describe('Test My app server', () => {
 
     test("should check password: Invalid email or password", async () => {
 
-        expect(async () => {
+        try {
             await userService.checkPassword("fernando12", "2b$10$9kERtFfacE6YMmZuBPNIPe5dxVigGYabkj3xykgXWQHJ9qzVkz.92")
-        }).rejects.toThrow();
+            throw new Error();
+        } catch (error: any) {
+            expect(error).toHaveProperty("message");
+            expect(error.message).toEqual("Invalid email or password");
+
+        }
     })
 
     test("should check get token", async () => {
@@ -166,10 +180,14 @@ describe('Test My app server', () => {
 
         jest.spyOn(repository, "getUser").mockResolvedValueOnce(undefined);
 
-
-        expect(async () => {
+        try {
             await userService.getToken({ email: 'fernando@mail.com', password: "fernando123" });
-        }).rejects.toThrow();
+            throw new Error();
+        } catch (error: any) {
+            expect(error).toHaveProperty("message");
+            expect(error.message).toEqual("Invalid email or password");
+
+        }
     });
 
     test("should check get token: null process.env null", async () => {
@@ -185,9 +203,14 @@ describe('Test My app server', () => {
             updated_at: null
         });
 
-        expect(async () => {
+        try {
             await userService.getToken({ email: 'fernando@mail.com', password: "fernando123" });
-        }).rejects.toThrow();
+            throw new Error();
+        } catch (error: any) {
+            expect(error).toHaveProperty("message");
+            expect(error.code).toEqual("INTERNAL_SERVER_ERROR");
+
+        }
 
     });
 })
