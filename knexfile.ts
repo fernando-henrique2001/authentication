@@ -1,16 +1,17 @@
 import type { Knex } from "knex";
+require('dotenv/config');
 
 // Update with your config settings.
 
 const config: { [key: string]: Knex.Config } = {
   development: {
-    client: 'mysql',
+    client: process.env.CLIENT,
     connection: {
-      host: '127.0.0.1',
-      port: 3306,
-      user: 'user',
-      password: 'password',
-      database: 'db'
+      host: process.env.HOST,
+      port: Number(process.env.PORT),
+      user: process.env.USER,
+      password: process.env.PASSWORD,
+      database: process.env.DATABASE
     },
   }
 }

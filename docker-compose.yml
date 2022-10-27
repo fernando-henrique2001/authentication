@@ -1,0 +1,47 @@
+version: "3.7"
+services:
+
+  db:
+      image: mysql:5.7
+      restart: always
+      environment:
+        MYSQL_DATABASE: 'db'
+        MYSQL_USER: 'user'
+        MYSQL_PASSWORD: 'password'
+        MYSQL_ROOT_PASSWORD: 'password'
+      ports:
+        - '8080:3306'
+      expose:
+        - '3306'
+      volumes:
+        - my-sql:/var/lib/mysql
+      hostname: db
+      networks:
+        - fernando
+
+
+  api:
+    build:
+      context: .
+      args:
+        - CLIENT=mysql
+        - HOST=db
+        - PORT=3306
+        - USER=user
+        - PASSWORD=password
+        - DATABASE=db
+    container_name: autenticacao-dockernode
+    ports: 
+      - "4000:4000"
+    volumes: 
+      - .:/usr/app/
+      - /usr/app/node_modules
+    networks:
+      - fernando
+    depends_on:
+      - db
+
+volumes:
+  my-sql:
+networks: 
+  fernando:
