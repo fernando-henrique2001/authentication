@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "knex migrate:latest && nodemon src/index.ts",
+    "start": "nodemon -L src/index.ts && knex migrate:latest",
     "test": "jest --detectOpenHandles"
   },
   "author": "Fernando Henrique",
